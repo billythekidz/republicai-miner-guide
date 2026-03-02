@@ -90,7 +90,10 @@ BOND_STATUS=$(republicd query staking validator $VALOPER --node $NODE -o json 2>
 echo "bond_status=$BOND_STATUS"
 ```
 
-**Gate**: Must be `BOND_STATUS_BONDED`. If not → cannot receive or process compute jobs.
+**Decision logic:**
+- `BOND_STATUS_BONDED` → Full capabilities: submit jobs, compute, AND submit results on-chain ✅
+- `BOND_STATUS_UNBONDED` → Can submit jobs and run compute, but CANNOT submit results on-chain ⚠️
+- If unbonded → warn user: "You can add jobs and compute, but results cannot be submitted to chain until validator is bonded"
 
 ### 2.3 Wallet balance
 
@@ -771,7 +774,7 @@ echo "=== End Health Check ==="
 | Check | If FAIL |
 |-------|---------|
 | Node sync | Wait. Do not proceed with any TX. |
-| Validator bonded | Cannot receive jobs. User must bond validator. |
+| Validator bonded | ⚠️ Can still add jobs & compute. Cannot submit results on-chain until bonded. |
 | Balance < 2 RAI | Cannot submit jobs. Need funds. |
 | Service down | `systemctl restart <service>` then re-check. |
 | HTTP server | Check port conflict: `ss -tlnp | grep 8080` |
@@ -819,6 +822,10 @@ Problem: Docker GPU fails
 Problem: No result.bin after inference
   → Check: grep "result.bin" /root/inference.py
   → Fix: Re-run Step 4 patch
+
+Problem: submit-job-result fails (unbonded)
+  → Cause: Only bonded validators can submit results on-chain
+  → Action: Bond validator first. Note: you CAN still add jobs and run compute while unbonded.
 
 Problem: submit-job-result bech32 error
   → Cause: Known testnet bug (rai→raivaloper conversion)

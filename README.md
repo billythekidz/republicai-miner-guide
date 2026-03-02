@@ -74,13 +74,22 @@ If this fails, install [NVIDIA Container Toolkit](https://docs.nvidia.com/datace
 
 ## 2. Check Validator Status
 
-Your validator **must be active (bonded)** to receive compute jobs.
+> **Validator Status & Capabilities:**
+>
+> | Status | Submit Jobs | Run Compute | Submit Results On-Chain |
+> |--------|:-----------:|:-----------:|:----------------------:|
+> | **Bonded** | ✅ | ✅ | ✅ |
+> | **Unbonded** | ✅ | ✅ | ❌ |
+>
+> You can add jobs and run GPU compute with **any validator status** (just need 1 RAI per job).
+> However, **only bonded validators** can submit compute results to the chain.
 
 ```bash
-# Check if your validator is bonded
+# Check your validator status
 republicd query staking validator <YOUR_VALOPER> \
   --node http://localhost:26657 -o json | jq '.status'
-# Expected: "BOND_STATUS_BONDED"
+# BOND_STATUS_BONDED = can submit results on-chain
+# BOND_STATUS_UNBONDED = can add jobs & compute, but cannot submit results
 
 # Check if node is synced
 curl -s http://localhost:26657/status | jq '.result.sync_info.catching_up'
@@ -92,7 +101,7 @@ republicd query bank balances <YOUR_WALLET> \
 # Need at least 2 RAI (1 RAI per job fee + gas)
 ```
 
-> ⚠️ **If validator is not bonded**, you cannot receive jobs. Bond first with:
+> ⚠️ **To submit results on-chain**, your validator must be bonded:
 > ```bash
 > republicd tx staking create-validator ... # See Republic validator docs
 > ```
@@ -741,7 +750,7 @@ republicd tx computevalidation submit-job \
 > - The upload and fetch endpoints must be hosted on **YOUR** server
 > - Only the **target validator** can process and submit the result for that job
 > - Fee: **1 RAI** per job (escrowed on-chain)
-> - The target validator must be **BONDED** to receive and process jobs
+> - The target validator can be bonded or unbonded to receive and compute jobs, but must be **BONDED** to submit results on-chain
 
 ---
 
