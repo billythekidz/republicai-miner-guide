@@ -1,5 +1,8 @@
 # RepublicAI GPU Compute Job — Complete Setup Guide
 
+> 🤖 **Using an AI agent (Claude, ChatGPT, Cursor, Antigravity, etc.) to set up your miner?**  
+> 👉 Follow [**AGENT-COMPUTE-GUIDE.md**](AGENT-COMPUTE-GUIDE.md) instead — it's optimized for agents with auto-resolved variables, validation gates, decision logic, and zero placeholders.
+
 > **Tested & verified on testnet `raitestnet_77701-1`**  
 > Last updated: 2026-03-02
 
