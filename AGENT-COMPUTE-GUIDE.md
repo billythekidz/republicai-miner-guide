@@ -90,10 +90,10 @@ BOND_STATUS=$(republicd query staking validator $VALOPER --node $NODE -o json 2>
 echo "bond_status=$BOND_STATUS"
 ```
 
-**Decision logic:**
-- `BOND_STATUS_BONDED` → Full capabilities: submit jobs, compute, AND submit results on-chain ✅
-- `BOND_STATUS_UNBONDED` → Can submit jobs and run compute, but CANNOT submit results on-chain ⚠️
-- If unbonded → warn user: "You can add jobs and compute, but results cannot be submitted to chain until validator is bonded"
+**Note**: Bonded = top 100 validators by delegated RAI. This is NOT a validator setting — it depends on delegation ranking.
+- `BOND_STATUS_BONDED` → Can submit jobs, compute, AND submit results on-chain ✅
+- `BOND_STATUS_UNBONDED` → Can submit jobs and compute, but CANNOT submit results on-chain ⚠️
+- If unbonded → NOT a blocker for setup. Proceed normally. Warn: results won't be submittable on-chain until bonded (top 100).
 
 ### 2.3 Wallet balance
 
