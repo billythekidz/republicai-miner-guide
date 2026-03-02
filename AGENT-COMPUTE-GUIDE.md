@@ -92,8 +92,8 @@ echo "bond_status=$BOND_STATUS"
 
 **Note**: Bonded = top 100 validators by delegated RAI. This is NOT a validator setting — it depends on delegation ranking.
 - `BOND_STATUS_BONDED` → Can submit jobs, compute, AND submit results on-chain ✅
-- `BOND_STATUS_UNBONDED` → Can submit jobs and compute, but CANNOT submit results on-chain ⚠️
-- If unbonded → NOT a blocker for setup. Proceed normally. Warn: results won't be submittable on-chain until bonded (top 100).
+- `BOND_STATUS_UNBONDED` → **Can still submit jobs and run compute** ✅, but CANNOT submit results on-chain ❌
+- If unbonded → **NOT a blocker**. Proceed with full setup. Only on-chain result submission is blocked until bonded (top 100).
 
 ### 2.3 Wallet balance
 

@@ -81,8 +81,8 @@ If this fails, install [NVIDIA Container Toolkit](https://docs.nvidia.com/datace
 > | **Bonded** | ✅ | ✅ | ✅ |
 > | **Unbonded** | ✅ | ✅ | ❌ |
 >
-> You can add jobs and run GPU compute with **any validator status** (just need 1 RAI per job).
-> However, **only bonded validators** (top 100 by delegated RAI) can submit compute results to the chain.
+> **Even if unbonded, you can still submit jobs and run GPU compute** (just need 1 RAI per job).
+> Only submitting results on-chain requires **bonded** status (top 100 by delegated RAI).
 > Bonded status is determined by delegation ranking, not a validator setting.
 
 ```bash
