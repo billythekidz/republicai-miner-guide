@@ -1,0 +1,7 @@
+tunnel: 804e9622-5efc-4650-92a6-bef92bca91ce
+credentials-file: /root/.cloudflared/804e9622-5efc-4650-92a6-bef92bca91ce.json
+
+ingress:
+  - hostname: republicai.devn.cloud
+    service: http://localhost:8081
+  - service: http_status:404
